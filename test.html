@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Testing grounds</title>
+  <link href="test.css" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Pentadactyl hint tests</h1>
+
+
+  <div class="item">
+    <h2>Anchor (default event)</h2>
+    <a href="http://5digits.org/pentadactyl/">Click here</a>
+  </div>
+
+
+  <div class="item">
+    <h2>Inline click event</h2>
+    <span onclick="alert('hi')">Click here</span>
+  </div>
+
+
+  <div class="item">
+    <h2>Dynamic click event</h2>
+    <span class="dce">Click here</span>
+  </div>
+
+
+  <div class="item">
+    <h2>Dynamic click event on element made visible with CSS :hover
+    pseudo-class</h2>
+
+
+    <p>Hover the mouse over one of the comments:</p>
+
+
+    <table>
+      <tbody>
+        <tr class="comment">
+          <td><span id="score1" title="number of votes received">12</span>
+          </td>
+
+          <td>
+            <a class="comment-up comment-up-off" id="vote1" title=
+            "Upvote this">upvote</a>
+          </td>
+
+          <td class="comment-text">
+            <div style="display: block;">
+              <span>First comment</span> –&nbsp; Adam <span dir=
+              "ltr"><span title="2009-07-29 20:19:03Z">(Jul 29 '09 at
+              20:19)</span></span>
+            </div>
+          </td>
+        </tr>
+
+
+        <tr class="comment">
+          <td><span id="score2" title="number of votes received">2</span>
+          </td>
+
+          <td>
+            <a class="comment-up comment-up-off" id="vote2" title=
+            "Upvote this">upvote</a>
+          </td>
+
+          <td class="comment-text">
+            <div style="display: block;">
+              <span>Second comment</span> –&nbsp; ck_ <span dir=
+              "ltr"><span title="2011-08-05 05:21:30Z">(Aug 5 '11 at
+              5:21)</span></span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p> 
+    There's no DOM method for activating the :hover pseudo-class, according
+    to <a href="http://stackoverflow.com/q/4347116/371334">this stackoverflow
+      question</a>, and Pentadactyl doesn't consider invisible elements
+    for hints
+    </p>
+  </div>
+
+  <div class="item">
+    <h2>Div with :active pseudo-class</h2>
+
+    <div id="activate">
+      Click here
+    </div>
+  </div>
+
+  <div class="item">
+    <h2>Inline mouseover event</h2>
+    <span onmouseover="alert('hi')">Hover here</span>
+  </div>
+
+  <div class="item">
+    <h2>Dynamic mouseover event</h2>
+    <span id="dme">Hover here</span>
+  </div>
+  
+  <div class="item">
+    <h2>Abbreviation tag</h2>
+    <p>Tony Blair is the prime minister of the 
+      <abbr title="United Kingdom">UK</abbr>.
+    </p>
+  </div>
+
+  <div class="item">
+    <h2>Resizable elements</h2>
+
+    <textarea name="textarea" rows="10" cols="50">Write something here</textarea>
+
+    <p id="resizable">
+      This paragraph is resizable, because the CSS resize property is set to
+      'both' and the overflow property is set to 'scroll' on this element.
+    </p>
+  </div>
+
+  <div class="item">
+    <h2>Non-reactive links</h2>
+    <p>
+    Anchor with link to http://5digits.org/pentadactyl/ and style
+    "pointer-events: none":
+    <a class="non-reactive" href="http://5digits.org/pentadactyl/">Click here</a>
+    </p>
+    <p>
+    Span with dynamic click event and style "pointer-events: none":
+    <span class="non-reactive dce">Click here</span>
+  </div>
+
+  <div class="item">
+    <h2>Div links</h2>
+
+    <p>
+    These should be like normal links but hint display is weird.
+    </p>
+
+    <a href="http://5digits.org/pentadactyl/">
+      <div class="roundlink "> DivText1 </div>
+    </a> 
+    
+    <a href="http://5digits.org/pentadactyl/"> 
+      <div class="roundlink "> DivText2 </div>
+    </a> 
+
+  </div>
+
+  <div class="item" style="clear:both;">
+    <h2>jQuery delegated event</h2>
+
+    <p>
+      The container listens for e.g. click events but the handler passed to
+      jQuery's
+      "<a href="http://api.jquery.com/on/">on</a>" function is not
+      called if the target is the container.
+      This is used, for example, you want to have one listener for a menu
+      that does something based on the menu item clicked on.</p>
+
+    <div id="parListener">
+      <span id="childText">Click here</span>
+    </div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.js"></script> 
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="test.js"></script>
+
+  <div class="item">
+    
+    <h2>Relative positioning and high z-index</h2>
+
+    <p> Button hint is behind it. </p>
+
+    <button style="position: relative ;z-index: 2099999999;" 
+      type="button" role="button" title="Close">
+      Close
+    </button>
+
+
+  </div>
+
+</body>
+</html>
+

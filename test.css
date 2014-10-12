@@ -1,0 +1,55 @@
+.item {
+    padding-bottom: 40px;
+    padding-left: 20px;
+}
+
+.comment-flag,.comment-up,.comment-delete{
+	visibility:hidden;
+	cursor:pointer
+}
+
+.comment:hover .comment-flag,.comment:hover .comment-up,.comment:hover .comment-delete,.comment:hover .comment-edit-hide,.comment:hover .comment-up-on{
+	visibility:visible
+}
+
+tr.comment:hover {
+	background-color:#fafafa
+}
+
+#resizable {
+    resize:both; 
+    width:200px; 
+    height:200px; 
+    border:1px solid black;
+    overflow:scroll;
+}
+
+#activate:active {
+    background:red;
+}
+
+.non-reactive {
+    pointer-events: none;
+}
+
+.roundlink{
+    background:#ececec url(http://cucustom.s3.amazonaws.com/athletics/images/main/default-roundlink.jpg) no-repeat 0 0;
+    padding:161px 0 12px;
+    float:left;
+    margin:42px 14px 0;
+    width:219px;
+}
+
+#parListener{
+    padding: 20px;
+    border: 1px solid black;
+}
+#childText{
+    border: 1px solid black;
+}
+
+#highz {
+    z-index: 2099999999;
+    padding: 30px;
+}
+
