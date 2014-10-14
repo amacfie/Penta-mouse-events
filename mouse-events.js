@@ -21,32 +21,33 @@ var INFO =
         "This plugin adds extended hint modes for triggering mouse events.",
         ["item", {},
             ["spec", {}, ";h"],
-            ["description", {}, "Simulate mouse hover on hint"]
-        ],
-        ["item", {},
-            ["spec", {}, ";r"],
-            ["description", {}, "Trigger left click event at hint with listener"]
+            ["description", {}, "Trigger mouseover on hint"]
         ],
         ["item", {},
             ["spec", {}, ";j"],
-            ["description", {}, "Stop simulating mouse hover on hint"]
+            ["description", {}, "Trigger left click at hint"]
+        ],
+        ["item", {},
+            ["spec", {}, ";r"],
+            ["description", {}, "Trigger mouseout at hint"]
         ],
 
     ]
 ];
 
 (function () {
+    var debug = false;
+
+    if (debug) {
+        //console is the browser console
+        //https://developer.mozilla.org/en-US/docs/Tools/Browser_Console
+        console.log('Loaded');
+    }
+
     var getFilter = function (eventTypes) {
         //Assuming this doesn't have to detect hidden elements
         //(VE line 579)
         return function (elem) {
-            // JFT
-            //if (elem.className == 'comment-up comment-up-off') {
-            //    return true;
-            //} else {
-            //    return false;
-            //}
-            // /JFT
             var els = Cc['@mozilla.org/eventlistenerservice;1'].
                 getService(Ci.nsIEventListenerService);
             var infos = els.getListenerInfoFor(elem, {});
@@ -86,17 +87,48 @@ var INFO =
         });
     };
 
-    var lastMouseOverElem = null;
+    // As mentioned here
+    // https://developer.mozilla.org/en-US/docs/Extensions/Common_causes_of_memory_leaks_in_extensions
+    // an alternative approach is to do the following when the lastMouseOverElem
+    // value is set: attach a listener to the document unload event which
+    // clears the lastMouseOverElem
+    // also see http://stackoverflow.com/q/25041864/371334
+    var lastMouseOverElem = {
+        weakReference: null,
+        exists: function () {
+            return Boolean( this.weakReference && 
+                            this.weakReference.get() && 
+                            this.weakReference.get().parentNode );
+        },
+        getElement: function () {
+            if (this.exists()) {
+                return this.weakReference.get();
+            } else {
+                throw 'Last mouseover element does not exist';
+            }
+        },
+        setElement: function (elem) {
+            this.weakReference = Components.utils.getWeakReference(elem);
+        }
+    };
 
     dactyl.modules.hints.addMode(
         'h',
         'Simulate mouse hover on hint',
         function (elem) {
-            if (lastMouseOverElem && typeof lastMouseOverElem !== 'undefined') {
-                dispatchEvents(lastMouseOverElem, ['mouseout']);
+            if (debug) {
+                console.log('Current weak ref obj: ', 
+                            lastMouseOverElem.weakReference);
+            }
+            if (lastMouseOverElem.exists()) {
+                if (debug) {
+                    console.log('Current last mouseover elem: ',
+                                lastMouseOverElem.getElement());
+                }
+                dispatchEvents(lastMouseOverElem.getElement(), ['mouseout']);
             }
             dispatchEvents(elem, ['mouseover', 'mousemove']);
-            lastMouseOverElem = elem;
+            lastMouseOverElem.setElement(elem);
         },
         getFilter(['mouseover', 'mousemove']),
         ['*']
@@ -123,12 +155,13 @@ var INFO =
         ['*']
     );
 
+    //Undocumented
     group.commands.add(
         ['setmouseout'],
         '',
         function () {
-            if(lastMouseOverElem && typeof lastMouseOverElem !== 'undefined') {
-                dispatchEvents(lastMouseOverElem, ['mouseout']);
+            if (lastMouseOverElem.exists()) {
+                dispatchEvents(lastMouseOverElem.getElement(), ['mouseout']);
             }
         }
     );
