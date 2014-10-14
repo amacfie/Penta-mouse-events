@@ -92,7 +92,7 @@ var INFO =
         'h',
         'Simulate mouse hover on hint',
         function (elem) {
-            if (lastMouseOverElem) {
+            if (lastMouseOverElem && typeof lastMouseOverElem !== 'undefined') {
                 dispatchEvents(lastMouseOverElem, ['mouseout']);
             }
             dispatchEvents(elem, ['mouseover', 'mousemove']);
@@ -127,7 +127,7 @@ var INFO =
         ['setmouseout'],
         '',
         function () {
-            if(lastMouseOverElem) {
+            if(lastMouseOverElem && typeof lastMouseOverElem !== 'undefined') {
                 dispatchEvents(lastMouseOverElem, ['mouseout']);
             }
         }
