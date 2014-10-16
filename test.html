@@ -82,7 +82,18 @@
     There's no DOM method for activating the :hover pseudo-class, according
     to <a href="http://stackoverflow.com/q/4347116/371334">this stackoverflow
       question</a>, and Pentadactyl doesn't consider invisible elements
-    for hints
+    for hints.
+    Is there a Firefox XPCOM method for getting the active CSS statements
+    and the elements they style? 
+    Manually grabbing and parsing the CSS files and style tags
+    is an option.
+    If finding the elements with :hover selectors in CSS is too hard, the
+    brute-force method is hinting all elements.
+Perhaps 
+    <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIDOMWindowUtils#sendMouseEventToWindow()">
+      sendMouseEventToWindow()</a> could be used to simulate hovering on 
+    elements in a way that works for CSS. 
+
     </p>
   </div>
 
@@ -178,8 +189,7 @@
 
     <p> Button hint is behind it. </p>
 
-    <button style="position: relative ;z-index: 2099999999;" 
-      type="button" role="button" title="Close">
+    <button id="highz" class="dce" type="button" role="button" title="Close">
       Close
     </button>
 

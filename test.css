@@ -49,7 +49,7 @@ tr.comment:hover {
 }
 
 #highz {
+    position: relative;
     z-index: 2099999999;
-    padding: 30px;
 }
 
