@@ -4,8 +4,8 @@
 ability to make web UIs keyboard-accessible.
 Install and run `:help plugins`.
 
-`test.html` is a page for testing Pentadactyl's ability to make webpage elements
-keyboard-accessible
+`test.html` is a page for testing Pentadactyl's ability to make web UIs
+keyboard-accessible.
 
 Tested with Pentadactyl 1.1 and Firefox 30.
 
