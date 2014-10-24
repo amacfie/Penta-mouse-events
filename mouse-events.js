@@ -1,7 +1,7 @@
 /*jshint moz:true*/
 // based on hints-mouse-events.js 
 // https://g.mozest.com/viewthread.php?tid=38908&amp;page=3#pid261071
-// and Visual Event (VE)
+// and inspired by Visual Event (VE)
 // https://github.com/DataTables/VisualEvent
 
 var INFO =
